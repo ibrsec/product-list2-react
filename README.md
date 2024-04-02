@@ -88,7 +88,7 @@
 
 📦 Used mock products data from data.jsx file </br>
 🎯 Used React environment, components, use state, use effect hooks, uplifting state </br>
-🖥 Select categories by clicking buttons
+🖥 Select categories by clicking buttons </br>
 🔩 Search products including categories       </br>
 <!-- 💪 and they are saved to local storage</br> -->
 <!-- 🌱 ÷Screen and search the Legends on the app</br> -->
