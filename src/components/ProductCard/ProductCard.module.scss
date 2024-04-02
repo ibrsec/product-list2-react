@@ -1,0 +1,50 @@
+.card {
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  .cardTop {
+    background-color: #2222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 35px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 1.4rem;
+    .fav {
+      cursor: pointer;
+      &.active {
+        color: red;
+      }
+    }
+  }
+  img {
+    width: 100%;
+    height: 90%;
+    object-fit: contain;
+  }
+
+  .cardInfo {
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    position: absolute;
+    bottom: 4px;
+    left: 3px;
+    right: 3px;
+    transform: translateX(110%);
+    transition: 0.5s all ease;
+  } 
+
+  &:hover .cardInfo {
+    transform: translateX(0);
+  }
+}
