@@ -15,6 +15,7 @@
     font-size: 1.4rem;
     .fav {
       cursor: pointer;
+      transition: .5s;
       &.active {
         color: red;
       }

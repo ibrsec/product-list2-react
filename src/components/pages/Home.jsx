@@ -5,37 +5,59 @@ import { products } from "../../helper/data";
 import SearchBox from "../searhBox/SearchBox";
 import ProductsSection from "../ProductsSection/ProductsSection";
 import ProductCard from "../ProductCard/ProductCard";
-import { Col } from "react-bootstrap";
 
 const Home = () => {
-  // console.log(products);
-  // console.log(getCategorize(products));
-  //add a all category
-  const allCats = { ALL: products, ...getCategorize(products) };
+  console.log(getCategorize(products));
 
-  const [allProducts, setAllProducts] = useState(allCats);
-  console.log(allProducts);
-  const [productsOnScreen, setProductsOnScreen] = useState(allProducts["ALL"]);
-  console.log(productsOnScreen);
+  const [allProducts, setAllProducts] = useState(getCategorize(products));
+
+  const [choosedCat, setChoosedCat] = useState("ALL");
+  const [inputValue,setInputValue] = useState("");
 
   return (
-    <div>
+    <div className="home">
       <Header />
-      <NavbarButtons
+
+      <NavbarButtons allProducts={allProducts} setChoosedCat={setChoosedCat} />
+
+
+<SearchBox inputValue={inputValue} setInputValue={setInputValue}/>
+      <ProductsSection>
+        {
+
+            allProducts[choosedCat]?.filter(item=> item.title.toLowerCase().includes(inputValue))?.map((product) => {
+                return (
+                    <div key={product.id} className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
+                        <ProductCard product={product} />
+                    </div>
+                )
+            })
+        
+        }
+      </ProductsSection>
+
+      {/* <NavbarButtons
         allProducts={allProducts}
         productsOnScreen={productsOnScreen}
         setProductsOnScreen={setProductsOnScreen}
+        choosenCategory={choosenCategory}
+        setChoosenCategory={setChoosenCategory}  
       />
-      <SearchBox />
+      <SearchBox
+        allProducts={allProducts}
+        productsOnScreen={productsOnScreen}
+        setProductsOnScreen={setProductsOnScreen}
+        choosenCategory={choosenCategory} 
+      />
       <ProductsSection>
-        {productsOnScreen?.map((product) => {
+        { productsOnScreen?.map((product) => {
           return (
-            <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div key={product.id} className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
               <ProductCard product={product} />
             </div>
           );
         })}
-      </ProductsSection>
+      </ProductsSection> */}
     </div>
   );
 };
@@ -44,12 +66,15 @@ export default Home;
 
 // get all uniq categories with products
 const getCategorize = (products) => {
-  return products.reduce((categories, product) => {
-    const { category } = product;
-    if (!categories[category]) {
-      categories[category] = [];
-    }
-    categories[category].push(product);
-    return categories;
-  }, {});
+  return {
+    ALL: products,
+    ...products.reduce((categories, product) => {
+      const { category } = product;
+      if (!categories[category]) {
+        categories[category] = [];
+      }
+      categories[category].push(product);
+      return categories;
+    }, {}),
+  };
 };
